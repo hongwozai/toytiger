@@ -124,6 +124,10 @@ public:
     return input_->Read(buf_.get(), kBufferSize, buflen_);
   }
 
+  std::string InputSource() {
+    return input_->InputSource();
+  }
+
  private:
 
   /* 用于日志输出 */

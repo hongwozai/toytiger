@@ -18,6 +18,11 @@ class Location {
         line_(line),
         num_(num) {}
 
+  Location(const Location &pos)
+      : file_(pos.file_),
+        line_(pos.line_),
+        num_(pos.num_) {}
+
   Location(const Location &&pos)
       : file_(std::move(pos.file_)),
         line_(pos.line_),
@@ -40,7 +45,7 @@ class Exception {
  public:
   Exception(const std::string &msg, const Location &location)
       : msg_(msg),
-        location_(std::move(location)) {
+        location_(location) {
   }
 
   const std::string &What() const noexcept { return msg_; }

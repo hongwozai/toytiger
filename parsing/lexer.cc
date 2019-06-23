@@ -58,7 +58,7 @@ bool Lexer::IsKeyword(Token &token)
 
 Token Lexer::Symbol()
 {
-  Token token(Token::kIdentifier, input_->InputSource(), line_, num_);
+  Token token(Token::kIdentifier, InputSource(), line_, num_);
   int start = bufp_;
 
   while (true) {
@@ -90,7 +90,7 @@ Token Lexer::Symbol()
 
 Token Lexer::Number()
 {
-  Token token(Token::kNumber, input_->InputSource(), line_, num_);
+  Token token(Token::kNumber, InputSource(), line_, num_);
   int start = bufp_;
 
   /* 这里暂时只处理正整数 */
@@ -129,7 +129,7 @@ char Lexer::Trans(char c)
 
 Token Lexer::String()
 {
-  Token token(Token::kString, input_->InputSource(), line_, num_);
+  Token token(Token::kString, InputSource(), line_, num_);
   bool  state = false;
   string bufstr;
   int    bufstrp = 0;
@@ -149,7 +149,7 @@ Token Lexer::String()
     if (bufp_ >= buflen_) {
       if (!Reread()) {
         throw Exception("String lack last '\"'",
-                        Location(input_->InputSource(), line_, num_));
+                        Location(InputSource(), line_, num_));
       }
     }
 
@@ -210,7 +210,7 @@ Token Lexer::Punctuation()
 {
   char punc[2] = {0};
   Token token(Token::kPunctuation1,
-              std::move(input_->InputSource()), line_, num_);
+              std::move(InputSource()), line_, num_);
 
   punc[0] = buf_.get()[bufp_];
 
@@ -245,7 +245,7 @@ Token Lexer::Next()
     /* 缓冲区没有数据，或者数据已经用完 */
     if (buflen_ == 0 || bufp_ >= buflen_) {
       if (!Reread()) {
-        return Token(Token::kEof, std::move(input_->InputSource()), line_);
+        return Token(Token::kEof, std::move(InputSource()), line_);
       }
       /* 重读之后没有eof，但是长度仍旧等于0的，属于input内部错误 */
       if (buflen_ == 0) {
@@ -280,12 +280,12 @@ Token Lexer::Next()
       return Punctuation();
     } else {
       throw Exception("Not Support Char",
-                      Location(input_->InputSource(), line_, num_));
+                      Location(InputSource(), line_, num_));
     }
   }
 }
 
-#if 1
+#if 0
 int main(int argc, char *argv[])
 {
   shared_ptr<InputStream> input = MakeStringInputStream("while 111 fuck  #asdfasd\nffff \"fuck\" = : := > >=");
