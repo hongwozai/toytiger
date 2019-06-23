@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Antlr4
+*.tokens
+*.interp
+
+# global gtags
+GPATH
+GRTAGS
+GTAGS
