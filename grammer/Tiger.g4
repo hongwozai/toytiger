@@ -1,4 +1,4 @@
-grammar tiger;
+grammar Tiger;
 
 exps
     : exp +
